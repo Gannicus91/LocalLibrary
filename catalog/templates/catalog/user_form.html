@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>User №{{ profile.user.pk }}</h1>
+    <ul>
+      <li>Username: {{ profile.user.username}}</li>
+      <li>First name: {{ profile.user.first_name }}</li>
+      <li>Last name: {{ profile.user.last_name }}</li>
+      <li>Phone number: {{ profile.phone_number }}</li>
+      <li>Adress: {{ profile.adress }}</li>
+    </ul>
+    <h2>Borrowed books</h2>
+
+    {% if bookinstance_list %}
+    <ul>
+
+      {% for bookinst in profile.user.bookinstance_set.all %}
+      <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no books borrowed.</p>
+    {% endif %}
+{% endblock %}

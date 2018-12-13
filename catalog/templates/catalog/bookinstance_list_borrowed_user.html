@@ -1,7 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Borrowed books</h1>
+    <h1>My form</h1>
+    <ul>
+      <li>Username: {{ user.username }}</li>
+      <li>First name: {{ user.first_name }}</li>
+      <li>Last name: {{ user.last_name }}</li>
+      <li>Phone number: {{ user.profile.phone_number }}</li>
+      <li>Adress: {{ user.profile.adress }}</li>
+      <a href="{% url 'update_profile' %}">Edit profile</a>
+    </ul>
+    <h2>Borrowed books</h2>
 
     {% if bookinstance_list %}
     <ul>
@@ -15,6 +24,6 @@
 
     {% else %}
       <p>There are no books borrowed.</p>
-    {% endif %}       
+    {% endif %}
 {% endblock %}
 
