@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),
     url(r'^authors/$', views.AuthorListView.as_view(), name='authors'),
     url(r'^author/(?P<pk>\d+)$', views.AuthorDetailView.as_view(), name='author-detail'),
-    url(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    url(r'^profile/$', views.LoanedBooksByUserListView.as_view(), name='user-profile'),
     url(r'^borrowed/$', views.LoanedBooksAllListView.as_view(), name='all-borrowed'),
     url(r'^book/(?P<pk>[-\w]+)/renew/$', views.renew_book_librarian, name='renew-book-librarian'),
     url(r'^author/create/$', views.AuthorCreate.as_view(), name='author_create'),
@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^book/(?P<pk>\d+)/update/$', views.BookUpdate.as_view(), name='book_update'),
     url(r'^book/(?P<pk>\d+)/delete/$', views.BookDelete.as_view(), name='book_delete'),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
+    url(r'^profile_edit/$', views.update_profile, name='update_profile'),
+    url(r'^form/(?P<pk>\d+)$', views.user_profile, name='user-profile'),
 ]

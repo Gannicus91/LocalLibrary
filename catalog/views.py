@@ -181,3 +181,44 @@ class SearchView(View):
                                       )
         context = {'founded': founded}
         return render(self.request, self.template_name, context)
+
+
+from .forms import UserForm, ProfileForm
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+
+
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('user-profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'catalog/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+
+from .models import Profile
+
+
+@permission_required('catalog.can_mark_returned')
+def user_profile(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    bookinstance_list = BookInstance.objects.filter(borrower=profile.user)
+    context = {
+        'profile': profile,
+        'bookinstance_list': bookinstance_list
+    }
+    return render(request, 'catalog/user_form.html', context)
+
+
