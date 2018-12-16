@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin1707admin/', admin.site.urls),
     url(r'^catalog/', include('catalog.urls')),
     url(r'^$', RedirectView.as_view(url='/catalog/', permanent=True)),
     url(r'^accounts/', include('allauth.urls')),
