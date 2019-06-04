@@ -6,8 +6,8 @@
         <div class="call-sm-12">
             <h3>Searh result: {{ founded.count }}</h3>
             {% for book in founded %}
-                <h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </h4>
-                <p>{{ book.summary|truncatewords:30 }}</p>
+                <h4 class="search-res-title"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </h4>
+                <p class="search-res">{{ book.summary|truncatewords:30 }}</p>
             {% endfor %}
         </div>
     </div>

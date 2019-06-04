@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.http import HttpResponse
 from functools import reduce
 from django.db.models import Q
 import operator
@@ -171,6 +172,7 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
 
 class SearchView(View):
     template_name = 'catalog/search.html'
+    ajax = 'catalog/ajax/search.html'
 
     def get(self, request, *args, **kwargs):
         query = self.request.GET.get('q')
@@ -180,7 +182,10 @@ class SearchView(View):
                                       Q(genre__name__icontains=query)
                                       )
         context = {'founded': founded}
-        return render(self.request, self.template_name, context)
+        if request.is_ajax():
+            return render(self.request, self.ajax, context)
+        else:
+            return render(self.request, self.template_name, context)
 
 
 from .forms import UserForm, ProfileForm
@@ -220,5 +225,28 @@ def user_profile(request, pk):
         'bookinstance_list': bookinstance_list
     }
     return render(request, 'catalog/user_form.html', context)
+
+
+import json
+
+
+def autocomplete(request):
+    q = request.GET.get('term', '')
+    if request.is_ajax() or q != '':
+        books = Book.objects.filter(title__startswith=q)
+        authors = Author.objects.filter(last_name__startswith=q)
+        genres = Genre.objects.filter(name__startswith=q)
+        results = []
+        for r in books:
+            results.append(r.title)
+        for r in authors:
+            results.append(r.last_name)
+        for r in genres:
+            results.append(r.name)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    return HttpResponse(data, content_type='application/json')
+
 
 

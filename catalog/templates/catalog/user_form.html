@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>User №{{ profile.pk }}</h1>
-    <ul>
+    <ul class="list">
       <li>Username: {{ profile.user.username}}</li>
       <li>First name: {{ profile.user.first_name }}</li>
       <li>Last name: {{ profile.user.last_name }}</li>
@@ -12,7 +12,7 @@
     <h2>Borrowed books</h2>
 
     {% if bookinstance_list %}
-    <ul>
+    <ul class="list">
 
       {% for bookinst in profile.user.bookinstance_set.all %}
       <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^profile_edit/$', views.update_profile, name='update_profile'),
     url(r'^form/(?P<pk>\d+)$', views.user_profile, name='user-profile'),
+    url(r'^ajax/autocomplete/', views.autocomplete, name='autocomplete'),
 ]

@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>My form</h1>
-    <ul>
+    <ul class="list">
       <li>Username: {{ user.username }}</li>
       <li>First name: {{ user.first_name }}</li>
       <li>Last name: {{ user.last_name }}</li>
@@ -13,7 +13,7 @@
     <h2>Borrowed books</h2>
 
     {% if bookinstance_list %}
-    <ul>
+    <ul class="list">
 
       {% for bookinst in bookinstance_list %} 
       <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">

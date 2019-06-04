@@ -1,15 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
-    <h1>Author: {{ author }} </h1>
-    <p>{{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %}</p>
-    {% if user.is_staff %}
-        {% if perms.catalog.can_mark_returned %}
-            <a href="{% url 'author_update' author.pk %}">Update</a>
-            <a href="{% url 'author_delete' author.pk %}">Delete</a>
+    <div class="title">
+    <h1 class="title">Author: {{ author }} </h1>
+    <p class="title">{{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% else %}н.в.{% endif %}</p>
+        {% if user.is_staff %}
+            {% if perms.catalog.can_mark_returned %}
+                <a href="{% url 'author_update' author.pk %}">Update</a>
+                <a href="{% url 'author_delete' author.pk %}">Delete</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
     <div style="margin-left:20px;margin-top:20px">
     <h4>Books</h4>
 

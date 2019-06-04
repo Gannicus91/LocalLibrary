@@ -4,7 +4,7 @@
 
     <div>
         {% load static %}
-        <img src="{% static "images/defualt_book.jpg" %}" alt="Default image book" style="width:327px;height:400px;"/>
+    <!--    <img src="{% static "images/defualt_book.jpg" %}" alt="Default image book" style="width:327px;height:400px;"/> -->
     </div>
     <h1>Title: {{ book.title }}</h1>
     <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
